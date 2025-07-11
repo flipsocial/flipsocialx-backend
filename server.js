@@ -12,7 +12,6 @@ app.get('/', (req, res) => {
   res.send('FlipSocialX Backend en línea 🚀');
 });
 
-// Ruta para recibir videos desde el frontend
 app.post('/upload', (req, res) => {
   const { video_url, description } = req.body;
 
@@ -25,12 +24,10 @@ app.post('/upload', (req, res) => {
     description
   });
 
-  // Aquí podrías guardar en Supabase más adelante
-
   res.status(200).json({ message: 'Video recibido con éxito 🚀' });
 });
 
-// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
+// cambio forzado

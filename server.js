@@ -1,3 +1,7 @@
+const { createClient } = require('@supabase/supabase-js');
+
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -12,19 +16,25 @@ app.get('/', (req, res) => {
   res.send('FlipSocialX Backend en línea 🚀');
 });
 
-app.post('/upload', (req, res) => {
+app.post('/upload', async (req, res) => {
   const { video_url, description } = req.body;
 
   if (!video_url || !description) {
     return res.status(400).json({ message: 'Faltan datos' });
   }
 
-  console.log("✅ Video recibido:", {
-    video_url,
-    description
-  });
+ // Guardar en Supabase
+  const { data, error } = await supabase
+    .from('videos')
+    .insert([{ video_url, description }]);
 
-  res.status(200).json({ message: 'Video recibido con éxito 🚀' });
+  if (error) {
+    console.error('❌ Error al guardar en Supabase:', error);
+    return res.status(500).json({ message: 'Error al guardar en Supabase' });
+  }
+
+  console.log('✅ Video guardado en Supabase:', data);
+  res.status(200).json({ message: 'Video recibido y guardado en Supabase 🚀' });
 });
 
 app.listen(PORT, () => {

@@ -45,3 +45,17 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
   res.send('FlipSocialX Backend v2 - Ruta /upload habilitada ✅');
 });
+
+app.get('/videos', async (req, res) => {
+  const { data, error } = await supabase
+    .from('videos')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('❌ Error al obtener videos:', error);
+    return res.status(500).json({ message: 'Error al obtener videos' });
+  }
+
+  res.status(200).json(data);
+});

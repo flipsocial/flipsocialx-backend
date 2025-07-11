@@ -31,3 +31,7 @@ app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
 // cambio forzado
+
+app.get('/', (req, res) => {
+  res.send('FlipSocialX Backend v2 - Ruta /upload habilitada ✅');
+});

@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
-  res.send('FlipSocialX API funcionando ✔️');
+  res.send('FlipSocialX API prueba funcionando ✔️');
 });
 
 const PORT = process.env.PORT || 5000;
